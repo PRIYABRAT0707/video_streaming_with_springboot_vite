@@ -1,0 +1,12 @@
+server:
+  port: 80
+  servlet:
+    context-path: "/course"
+
+spring:
+  application:
+    name: COURSE
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/postitdb
+          
