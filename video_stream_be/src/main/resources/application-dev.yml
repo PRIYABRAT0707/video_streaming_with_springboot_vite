@@ -1,7 +1,7 @@
 server:
   port: 80
   servlet:
-    context-path: "/course"
+    context-path: "/course"  
 
 spring:
   application:
@@ -9,4 +9,12 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/postitdb
-          
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2048MB
+      max-request-size: 2048MB
+
+videoDirectory:
+       path: ${user.home}/VideoPath        
+                
