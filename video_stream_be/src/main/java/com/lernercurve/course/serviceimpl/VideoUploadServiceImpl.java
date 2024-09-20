@@ -39,9 +39,9 @@ public class VideoUploadServiceImpl implements VideoUploadService {
 
     @Override
     public Map<String, Object> saveVideo(VideoMetadataDto videoMetadataDto) {
-       if (videoMetadataDto.getMultipartFile() !==null) {
+       if (videoMetadataDto.getMultipartFile() !=null) {
         
        }
-       throw new 
+       return null;
     }
 }
