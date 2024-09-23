@@ -25,8 +25,11 @@ public class LocationServiceImple implements LocationService {
         var videoUploadLocation = new VideoUploadLocation();
         videoUploadLocation.setAddress(videoUploadLocationDto.getAddress());
         videoUploadLocation.setUploadedDateTime(LocalDateTime.now());
+        videoUploadLocation.setUsername(videoUploadLocationDto.getUsername());
+        videoUploadLocation.setCity(videoUploadLocationDto.getCity());
+        videoUploadLocation.setState(videoUploadLocationDto.getState());
         var savedData = this.videoUploadLocationRepository.save(videoUploadLocation);
-        responseMap.put("savedData", savedData);
+        responseMap.put("response", savedData);
         return responseMap;
     }
 
