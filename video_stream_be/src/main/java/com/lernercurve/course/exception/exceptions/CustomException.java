@@ -32,7 +32,7 @@ public class CustomException {
 		return errorMap;
 	}
 	
-	private static String formatDateAndTime() {
+	public static String formatDateAndTime() {
 		String formattedDate="";
 		try {
 			formattedDate=ZonedDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL));

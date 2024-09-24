@@ -1,8 +1,9 @@
 server:
   port: 80
   servlet:
-    context-path: "/course"  
-
+    context-path: "/course"
+  tomcat:
+    connection-timeout: -1
 spring:
   application:
     name: COURSE
@@ -16,5 +17,10 @@ spring:
       max-request-size: 2048MB
 
 videoDirectory:
-       path: ${user.home}/VideoPath        
+       path: ${user.home}/VideoPath
+logging:
+  file:
+    name: "${user.home}/${spring.application.name}.log"
+  level:
+   debug: DEBUG		         
                 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lernercurve.course.dto.VideoMetadataDto;
 import com.lernercurve.course.dto.VideoUploadLocationDto;
+import com.lernercurve.course.entity.VideoMetadata;
 import com.lernercurve.course.exception.exceptions.MultipartFileCanNotBeNull;
 import com.lernercurve.course.service.LocationService;
 import com.lernercurve.course.service.VideoUploadService;
@@ -50,5 +51,10 @@ public class PostItController {
     @GetMapping("/get-video-by-thread")
     public ResponseEntity<List<Object>> getVideoByThread()  {
         return ResponseEntity.ok(this.deadLockCreation.overComeADeadlock());
+    }
+    
+    @GetMapping("/get-database-by-thread")
+    public ResponseEntity<Map<String, Object>> getDataBaseCount()  {
+        return ResponseEntity.ok(this.deadLockCreation.getMetaCount());
     }
 }
