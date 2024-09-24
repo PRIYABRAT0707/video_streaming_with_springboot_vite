@@ -78,7 +78,6 @@ public class DeadLockCreation {
 						log.info("thread 1 holding videMetaData:- {}", Thread.currentThread());
 						returnedList.add(this.videoMetadataRepository.count());
 						videoMetaDataCondition.signal();
-						videoUploadCondition.await();
 						
 						if (this.videoUploadLocation.tryLock()) {
 							try {
@@ -90,15 +89,15 @@ public class DeadLockCreation {
 								this.videoUploadLocation.unlock();
 							}
 						}
-//						else {
-//							this.videoUploadLocation.lock();
-//							try {
-//								log.info("waiting thread 1 holding videoUploadLocation in else :- {}", Thread.currentThread());
-//								returnedList.add(this.videoUploadLocationRepository.count());
-//							} finally {
-//								this.videoUploadLocation.unlock();
-//							}
-//						}
+						else {
+							videoUploadCondition.await();
+							try {
+								log.info("waiting thread 1 holding videoUploadLocation in else :- {}", Thread.currentThread());
+								returnedList.add(this.videoUploadLocationRepository.count());
+							} finally {
+								this.videoUploadLocation.unlock();
+							}
+						}
 
 					} catch (Exception e) {
 						Thread.currentThread().interrupt();
@@ -123,7 +122,7 @@ public class DeadLockCreation {
 						log.info("thread 2 holding  videoUploadLocation:- {}", Thread.currentThread());
 						returnedList.add(this.videoUploadLocationRepository.count());
 						videoUploadCondition.signal();
-						videoMetaDataCondition.await();
+						
 						if (this.videoMetaDataLock.tryLock()) {
 							try {
 								log.info("thread 2 holding videMetaData:- {}", Thread.currentThread());
@@ -134,15 +133,15 @@ public class DeadLockCreation {
 								this.videoMetaDataLock.unlock();
 							}
 						}
-//						else {
-//							this.videoMetaDataLock.lock();
-//							try {
-//								log.info("waiting thread 2 holding videMetaData else block:- {}", Thread.currentThread());
-//								returnedList.add(this.videoMetadataRepository.count());
-//							} finally {
-//								this.videoMetaDataLock.unlock();
-//							}
-//						}
+						else {
+							videoMetaDataCondition.await();
+							try {
+								log.info("waiting thread 2 holding videMetaData else block:- {}", Thread.currentThread());
+								returnedList.add(this.videoMetadataRepository.count());
+							} finally {
+								this.videoMetaDataLock.unlock();
+							}
+						}
 
 					} catch (Exception e) {
 						Thread.currentThread().interrupt();
