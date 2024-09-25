@@ -15,9 +15,9 @@ public class LernerUtil {
 	private static final String timeStampKey = "timeStamp";
 	private static final String responseKey = "response";
 
-	@SafeVarargs
+	
 	public static <T, U, V, W, X> Map<String, Object> responseStructure(T status, U statusCode, V statusMessage,
-			W response,  ExtraResponse<X>... extraResponse) {
+			W response,  @SuppressWarnings("unchecked") ExtraResponse<X>... extraResponse) {
 		Map<String, Object> responseMap = new HashMap<>();
 		try {
 			responseMap.put(statusKey, status);
@@ -26,7 +26,9 @@ public class LernerUtil {
 			responseMap.put(timeStampKey, CustomException.formatDateAndTime());
 			responseMap.put(responseKey, response);
 			for (ExtraResponse<X> res : extraResponse) {
+				if(res !=null && (res instanceof ExtraResponse<X>)) {
 				responseMap.put(res.getResponseKey(), res.getResponseValue());
+				}	
 			}
 		} catch (Exception e) {
 			log.info("unable to construct a hashmap:- {}", e.getMessage());

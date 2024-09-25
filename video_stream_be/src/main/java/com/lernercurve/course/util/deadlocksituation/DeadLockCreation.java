@@ -42,10 +42,11 @@ public class DeadLockCreation {
 	private Condition videoMetaDataCondition = videoMetaDataLock.newCondition();
 	private Condition videoUploadCondition = videoUploadLocation.newCondition();
 	
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> getMetaCount(){
 		ExecutorService executor=Executors.newFixedThreadPool(100);
 		ReentrantLock lock=new ReentrantLock();
-		List<VideoMetadata> list = Stream.iterate(1,n->n+1).limit(10).map(i->this.deadlockWithCompFuture.getVideoMetaData(lock)).map(CompletableFuture::join).flatMap(i->i.stream()).toList();
+		List<VideoMetadata> list = Stream.iterate(1,n->n+1).limit(1).map(i->this.deadlockWithCompFuture.getVideoMetaData(lock)).map(CompletableFuture::join).flatMap(i->i.stream()).toList();
 		
 		return LernerUtil.responseStructure(HttpStatus.OK, HttpStatus.OK.value(), "Data Fetched successfully!!", list,new ExtraResponse<String>("ppanda","ppanda"),new ExtraResponse<String>("spanda","spanda"));
 	}
