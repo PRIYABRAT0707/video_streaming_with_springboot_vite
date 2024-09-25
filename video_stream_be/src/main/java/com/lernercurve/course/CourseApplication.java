@@ -2,6 +2,7 @@ package com.lernercurve.course;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
 @SpringBootApplication
 public class CourseApplication {
