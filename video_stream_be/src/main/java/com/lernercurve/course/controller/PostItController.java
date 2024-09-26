@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import com.lernercurve.course.dto.VideoUploadLocationDto;
 import com.lernercurve.course.entity.VideoMetadata;
 import com.lernercurve.course.exception.exceptions.MultipartFileCanNotBeNull;
 import com.lernercurve.course.service.LocationService;
+import com.lernercurve.course.service.UserMovement;
 import com.lernercurve.course.service.VideoUploadService;
 import com.lernercurve.course.util.deadlocksituation.DeadLockCreation;
 
@@ -32,7 +34,14 @@ public class PostItController {
     private VideoUploadService videoUploadService;
     @Autowired
     private DeadLockCreation deadLockCreation;
-
+    @Autowired
+    @Qualifier("userMovementImpl")
+    private UserMovement userMovement;
+    
+    @Autowired
+    @Qualifier("oneExtendingUserMovement")
+    private UserMovement userMovements;
+    
     @PostMapping("/save-location")
     public ResponseEntity<Map<String, Object>> saveUloadedLocation(
             @RequestBody VideoUploadLocationDto videoUploadLocationDto) {

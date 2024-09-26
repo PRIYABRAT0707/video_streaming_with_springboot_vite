@@ -24,23 +24,28 @@ public class DeadlockWithCompFuture {
 	private VideoMetadataRepository videoMetadataRepository;
 
 	public CompletableFuture<List<VideoMetadata>> getVideoMetaData(ReentrantLock lock) {
-
 		return CompletableFuture.supplyAsync(() -> {
-			List<List<VideoMetadata>> metaDataList = new ArrayList<>();
+			List<VideoMetadata> metaDataList = new ArrayList<>();
+			boolean isLocked = false;
 			try {
-				log.info("running in current thread:- {}",Thread.currentThread(),lock.isHeldByCurrentThread());
+				log.info("Running in current thread: {}", Thread.currentThread().getName());
 				if (lock.tryLock()) {
-					metaDataList.add(this.videoMetadataRepository.findAll());
+					isLocked = true;
+					metaDataList = this.videoMetadataRepository.findAll();
 				} else {
-					log.info("others threads using this resourse videoMetadataRepository");
+					log.info("Other threads are using the resource videoMetadataRepository");
 				}
 			} catch (Exception e) {
-				log.info("unable to accuire lock interupted:- ", e);
+				log.error("Error while fetching video metadata: ", e);
 			} finally {
-				lock.unlock();
+				log.info("lock accuired release:- {}",isLocked);
+				if (isLocked) {
+					lock.unlock();
+				}
 			}
+
 			return metaDataList;
-		}).thenApplyAsync(result->result.stream().flatMap(i->i.stream()).toList());
+		});
 	}
 
 }

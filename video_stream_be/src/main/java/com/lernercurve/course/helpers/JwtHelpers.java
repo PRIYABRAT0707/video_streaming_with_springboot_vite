@@ -1,6 +1,7 @@
 package com.lernercurve.course.helpers;
 
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,9 +14,12 @@ import com.lernercurve.course.entity.VideoMetadata;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.crypto.JwtSignatureValidator;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class JwtHelpers {
 	 private static final long JWT_TOKEN_VALIDITY=24*60*60*1000;
 		
@@ -77,6 +81,19 @@ public class JwtHelpers {
 			public Boolean validateToken(String token, VideoMetadata finoFserDetails) {
 				final String username = getUsernameFromToken(token);
 				return (username.equals(finoFserDetails.getDescription()) && !isTokenExpired(token));
+			}
+			
+			public boolean inValidateJwtToken(String token) {
+				var isTokenInvaliadted=false;
+				try {
+					Claims allClaimsFromToken = getAllClaimsFromToken(token);
+					
+				} catch (Exception e) {
+					log.info("Unable to invaliadate jwt token:- {}",e.getMessage());
+				}
+				
+				
+				return isTokenInvaliadted;
 			}
 		
 }

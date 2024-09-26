@@ -22,5 +22,9 @@ logging:
   file:
     name: "${user.home}/${spring.application.name}.log"
   level:
-   debug: DEBUG		         
+   debug: DEBUG
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
                 
