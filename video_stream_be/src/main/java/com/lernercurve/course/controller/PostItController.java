@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lernercurve.course.configuration.CustomHttpservletRequest;
 import com.lernercurve.course.dto.VideoMetadataDto;
 import com.lernercurve.course.dto.VideoUploadLocationDto;
 import com.lernercurve.course.entity.VideoMetadata;
@@ -41,6 +42,7 @@ public class PostItController {
     @Autowired
     @Qualifier("oneExtendingUserMovement")
     private UserMovement userMovements;
+    
     
     @PostMapping("/save-location")
     public ResponseEntity<Map<String, Object>> saveUloadedLocation(
