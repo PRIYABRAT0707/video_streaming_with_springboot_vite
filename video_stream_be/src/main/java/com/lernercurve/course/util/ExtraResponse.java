@@ -8,6 +8,7 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @ToString
+@Getter
 public class ExtraResponse<X> {
 	private String responseKey;
 	private X responseValue;

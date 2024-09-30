@@ -36,14 +36,13 @@ public class DeadlockWithCompFuture {
 					log.info("Other threads are using the resource videoMetadataRepository");
 				}
 			} catch (Exception e) {
-				log.error("Error while fetching video metadata: ", e);
+				log.error("Error while fetching video metadata: ", e.getMessage());
 			} finally {
 				log.info("lock accuired release:- {}",isLocked);
 				if (isLocked) {
 					lock.unlock();
 				}
 			}
-
 			return metaDataList;
 		});
 	}
