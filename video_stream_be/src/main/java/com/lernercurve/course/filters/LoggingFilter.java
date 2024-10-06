@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-@Order(1)
+@Order(3)
 public class LoggingFilter extends OncePerRequestFilter{
 
 	@Override
@@ -25,6 +25,7 @@ public class LoggingFilter extends OncePerRequestFilter{
 			
 			filterChain.doFilter(request, response);
 			log.info("i am logging LoggingFilter after request completed wit response :- {}",response);
+			
 			
 		} catch (Exception e) {
 			log.info("i am logging LoggingFilter if error occured :- {}",e.getMessage());
