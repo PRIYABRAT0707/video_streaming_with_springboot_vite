@@ -10,8 +10,11 @@ const dataArray=[{id:1,value:"ppanda",name:"bdk"},{id:2,value:"ppanda12",name:"b
 function App() {
   const indexedDbInstance = UseIndexedDbContex();
   const onAddData = async () => {
-    let savedData = await indexedDbInstance.addDataToObjectStore({ "id": 1, "name": "ppanda" })
+    let savedData = await indexedDbInstance.addDataToObjectStore({"name": "ppanda" })
     console.log(savedData);
+    const getAllData=  await indexedDbInstance.retriveDataFromObjectStore();
+    console.log(getAllData);
+    
 
   }
   console.log(indexedDbInstance);
@@ -21,6 +24,7 @@ function App() {
 
   return (
     <>
+    <Button onClick={onAddData}>add data</Button>
       <Box sx={{height:"500px",p:1}}>
         <VideoDocViewer />
       </Box>
