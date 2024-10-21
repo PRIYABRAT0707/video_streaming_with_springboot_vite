@@ -1,5 +1,4 @@
 
-
 export default class IndexedDb {
     indexDbInstance;
     objectStoreName = 'VIDEO_STREAM';
