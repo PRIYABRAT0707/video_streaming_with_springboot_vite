@@ -32,7 +32,7 @@ public class LernerConfig {
 		return http.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable()).formLogin(f -> f.disable())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(
-						req -> req.requestMatchers("videos/**", "/api-docs/**", "/swagger-ui/**").permitAll())
+						req -> req.requestMatchers("videos/**", "/api-docs/**", "/swagger-ui/**","/comp-one").permitAll())
 				.build();
 	}
 
